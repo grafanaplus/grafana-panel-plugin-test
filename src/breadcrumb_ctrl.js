@@ -2,7 +2,7 @@ import _ from 'lodash';
 import {PanelCtrl} from 'app/plugins/sdk';
 import {impressions} from 'app/features/dashboard/impression_store';
 import config from 'app/core/config';
-import './css/bootstrap.css!';
+import './css/breadcrumb.css!';
 
 export class TestCtrl extends PanelCtrl {
     constructor($scope, $injector, backendSrv) {
@@ -22,7 +22,10 @@ export class TestCtrl extends PanelCtrl {
         this.backendSrv.search({dashboardIds: dashIds, limit: this.panel.limit}).then(result => {
             var uri = "db/" + window.location.pathname.split("/").pop();
             var obj = _.find(result, { uri: uri });
-            this.test.push( { url: "dashboard/" + uri + "?hide_top_bar", name: obj.title } );
+            if (_.findIndex(this.test, { url: "dashboard/" + uri + "?hide_top_bar" }) < 0) {
+                this.test.push( { url: "dashboard/" + uri + "?hide_top_bar", name: obj.title } );
+            }
+            this.dashTitle = obj.title;
             sessionStorage.setItem('dashlist', JSON.stringify(this.test));
         });
     }

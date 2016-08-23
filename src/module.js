@@ -1,5 +1,5 @@
-import {TestCtrl} from './test_ctrl';
+import {BreadcrumbCtrl} from './breadcrumb_ctrl';
 
 export {
-  TestCtrl as PanelCtrl
+  BreadcrumbCtrl as PanelCtrl
 };
